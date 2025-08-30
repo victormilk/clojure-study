@@ -12,7 +12,7 @@
 ## 🗂️ Armazenando Objetos com def
 
 ```clojure
-(def great-books [\"East of Eden\" \"The Glass Bead Game\"])
+(def great-books ["East of Eden" "The Glass Bead Game"])
 ; => #'user/great-books
 
 ;; Processo interno:
@@ -23,10 +23,10 @@
 ;; 5. Retorna o var
 
 (deref #'user/great-books)  ; Acessar via var
-; => [\"East of Eden\" \"The Glass Bead Game\"]
+; => ["East of Eden" "The Glass Bead Game"]
 
 great-books                 ; Acesso normal (símbolo resolve para var, deref automático)
-; => [\"East of Eden\" \"The Glass Bead Game\"]
+; => ["East of Eden" "The Glass Bead Game"]
 ```
 
 **⚠️ Problema**: Name collision ao redefinir mesmo símbolo!
@@ -60,7 +60,7 @@ cheese.taxonomy/cheddars              ; namespace/nome
 ```clojure
 (alias 'taxonomy 'cheese.taxonomy)
 taxonomy/bries                         ; Usar alias curto
-; => [\"Wisconsin\" \"Somerset\" \"Brie de Meaux\" \"Brie de Melun\"]
+; => ["Wisconsin" "Somerset" "Brie de Meaux" "Brie de Melun"]
 ```
 
 ## 📁 Organização Real de Projetos
@@ -118,8 +118,8 @@ src/the_divine_cheese_code/visualization/svg.clj
 
 ```clojure
 ;; Dados dos roubos
-(def heists [{:location \"Cologne, Germany\"
-              :cheese-name \"Archbishop Hildebold's Cheese Pretzel\"
+(def heists [{:location "Cologne, Germany"
+              :cheese-name "Archbishop Hildebold's Cheese Pretzel"
               :lat 50.95 :lng 6.97}
              ;; ... mais roubos
              ])
@@ -143,11 +143,11 @@ src/the_divine_cheese_code/visualization/svg.clj
 
 ;; Geração SVG
 (defn xml [width height locations]
-  (str \"<svg height=\\\"\" height \"\\\" width=\\\"\" width \"\\\">\"
+  (str "<svg height=\\"" height "\\" width=\\"" width "\\">"
        (-> (transform width height locations)
            points
            line)
-       \"</svg>\"))
+       "</svg>"))
 ```
 
 **Resultado**: Padrão dos roubos forma um lambda (λ) - era Clojure o tempo todo! 🤯

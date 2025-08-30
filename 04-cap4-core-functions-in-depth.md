@@ -24,23 +24,23 @@ Clojure define `map`, `reduce` e outras funções em termos de **abstrações**,
 
 ### Tratando Todas as Estruturas como Sequências
 ```clojure
-(defn titleize [topic] (str topic \" for the Brave and True\"))
+(defn titleize [topic] (str topic " for the Brave and True"))
 
 ;; Funciona com vetores
-(map titleize [\"Hamsters\" \"Ragnarok\"])
-; => (\"Hamsters for the Brave and True\" \"Ragnarok for the Brave and True\")
+(map titleize ["Hamsters" "Ragnarok"])
+; => ("Hamsters for the Brave and True" "Ragnarok for the Brave and True")
 
 ;; Funciona com listas
-(map titleize '(\"Empathy\" \"Decorating\"))
-; => (\"Empathy for the Brave and True\" \"Decorating for the Brave and True\")
+(map titleize '("Empathy" "Decorating"))
+; => ("Empathy for the Brave and True" "Decorating for the Brave and True")
 
 ;; Funciona com sets
-(map titleize #{\"Elbows\" \"Soap Carving\"})
-; => (\"Elbows for the Brave and True\" \"Soap Carving for the Brave and True\")
+(map titleize #{"Elbows" "Soap Carving"})
+; => ("Elbows for the Brave and True" "Soap Carving for the Brave and True")
 
 ;; Funciona com maps
-(map #(titleize (second %)) {:uncomfortable-thing \"Winking\"})
-; => (\"Winking for the Brave and True\")
+(map #(titleize (second %)) {:uncomfortable-thing "Winking"})
+; => ("Winking for the Brave and True")
 ```
 
 ### As Três Funções Centrais: first, rest, cons
@@ -48,9 +48,9 @@ Clojure define `map`, `reduce` e outras funções em termos de **abstrações**,
 **JavaScript: Implementação de Lista Linkada**
 ```javascript
 // Estrutura de nó
-var node1 = { value: \"first\", next: node2 };
-var node2 = { value: \"middle\", next: node3 };
-var node3 = { value: \"last\", next: null };
+var node1 = { value: "first", next: node2 };
+var node2 = { value: "middle", next: node3 };
+var node3 = { value: "last", next: null };
 
 // Funções centrais
 var first = function(node) { return node.value; };
@@ -89,8 +89,8 @@ Clojure usa **polimorfismo** e **conversão de tipos** para fazer `first`, `rest
 ### map - Versátil e Poderosa
 **Múltiplas coleções:**
 ```clojure
-(map str [\"a\" \"b\" \"c\"] [\"A\" \"B\" \"C\"])
-; => (\"aA\" \"bB\" \"cC\")
+(map str ["a" "b" "c"] ["A" "B" "C"])
+; => ("aA" "bB" "cC")
 
 ;; Unificando dados de dieta de vampiro
 (def human-consumption [8.1 7.3 6.6 5.0])
@@ -120,11 +120,11 @@ Clojure usa **polimorfismo** e **conversão de tipos** para fazer `first`, `rest
 **Keywords como funções:**
 ```clojure
 (def identities
-  [{:alias \"Batman\" :real \"Bruce Wayne\"}
-   {:alias \"Spider-Man\" :real \"Peter Parker\"}])
+  [{:alias "Batman" :real "Bruce Wayne"}
+   {:alias "Spider-Man" :real "Peter Parker"}])
 
 (map :real identities)
-; => (\"Bruce Wayne\" \"Peter Parker\")
+; => ("Bruce Wayne" "Peter Parker")
 ```
 
 ### reduce - Mais Flexível que Parece
@@ -188,8 +188,8 @@ Clojure usa **polimorfismo** e **conversão de tipos** para fazer `first`, `rest
 (sort [3 1 2])              ; => (1 2 3)
 
 ;; Ordenar por função
-(sort-by count [\"aaa\" \"c\" \"bb\"])
-; => (\"c\" \"bb\" \"aaa\")
+(sort-by count ["aaa" "c" "bb"])
+; => ("c" "bb" "aaa")
 ```
 
 ### concat
@@ -203,9 +203,9 @@ Clojure usa **polimorfismo** e **conversão de tipos** para fazer `first`, `rest
 ```clojure
 ;; Banco de vampiros
 (def vampire-database
-  {0 {:makes-blood-puns? false, :has-pulse? true  :name \"McFishwich\"}
-   1 {:makes-blood-puns? false, :has-pulse? true  :name \"McMackson\"}
-   2 {:makes-blood-puns? true,  :has-pulse? false :name \"Damon Salvatore\"}})
+  {0 {:makes-blood-puns? false, :has-pulse? true  :name "McFishwich"}
+   1 {:makes-blood-puns? false, :has-pulse? true  :name "McMackson"}
+   2 {:makes-blood-puns? true,  :has-pulse? false :name "Damon Salvatore"}})
 
 (defn vampire-related-details [social-security-number]
   (Thread/sleep 1000)  ; Simula 1 segundo de busca
@@ -218,22 +218,22 @@ Clojure usa **polimorfismo** e **conversão de tipos** para fazer `first`, `rest
 
 ;; map retorna lazy seq - instantâneo!
 (time (def mapped-details (map vampire-related-details (range 0 1000000))))
-; => \"Elapsed time: 0.049 msecs\"
+; => "Elapsed time: 0.049 msecs"
 
 ;; Acessar primeiro elemento realiza chunk (32 elementos)
 (time (first mapped-details))
-; => \"Elapsed time: 32030.767 msecs\"
+; => "Elapsed time: 32030.767 msecs"
 
 ;; Segunda chamada é instantânea (já realizada)
 (time (first mapped-details))  
-; => \"Elapsed time: 0.022 msecs\"
+; => "Elapsed time: 0.022 msecs"
 ```
 
 ### Sequências Infinitas
 ```clojure
 ;; Batman theme
-(concat (take 8 (repeat \"na\")) [\"Batman!\"])
-; => (\"na\" \"na\" \"na\" \"na\" \"na\" \"na\" \"na\" \"na\" \"Batman!\")
+(concat (take 8 (repeat "na")) ["Batman!"])
+; => ("na" "na" "na" "na" "na" "na" "na" "na" "Batman!")
 
 ;; Números aleatórios
 (take 3 (repeatedly (fn [] (rand-int 10))))
@@ -253,16 +253,16 @@ Clojure usa **polimorfismo** e **conversão de tipos** para fazer `first`, `rest
 ### into - Conversão Entre Tipos
 ```clojure
 ;; map retorna seq, into converte de volta
-(into {} (map identity {:sunlight-reaction \"Glitter!\"}))
-; => {:sunlight-reaction \"Glitter!\"}
+(into {} (map identity {:sunlight-reaction "Glitter!"}))
+; => {:sunlight-reaction "Glitter!"}
 
 (into [] (map identity [:garlic :sesame-oil :fried-eggs]))
 ; => [:garlic :sesame-oil :fried-eggs]
 
 ;; Adicionar elementos
-(into {:favorite-emotion \"gloomy\"} 
-      [[:sunlight-reaction \"Glitter!\"]])
-; => {:favorite-emotion \"gloomy\" :sunlight-reaction \"Glitter!\"}
+(into {:favorite-emotion "gloomy"} 
+      [[:sunlight-reaction "Glitter!"]])
+; => {:favorite-emotion "gloomy" :sunlight-reaction "Glitter!"}
 ```
 
 ### conj - Adicionar Elementos
@@ -281,7 +281,7 @@ Clojure usa **polimorfismo** e **conversão de tipos** para fazer `first`, `rest
 
 ## 🔧 Function Functions
 
-### apply - \"Explode\" Coleções
+### apply - "Explode" Coleções
 ```clojure
 ;; Problema: max não aceita vetor
 (max [0 1 2])          ; => [0 1 2] (errado!)
@@ -301,9 +301,9 @@ Clojure usa **polimorfismo** e **conversão de tipos** para fazer `first`, `rest
 (add10 3)              ; => 13
 
 (def add-missing-elements
-  (partial conj [\"water\" \"earth\" \"air\"]))
-(add-missing-elements \"unobtainium\" \"adamantium\")
-; => [\"water\" \"earth\" \"air\" \"unobtainium\" \"adamantium\"]
+  (partial conj ["water" "earth" "air"]))
+(add-missing-elements "unobtainium" "adamantium")
+; => ["water" "earth" "air" "unobtainium" "adamantium"]
 
 ;; Logger especializado
 (defn lousy-logger [log-level message]
@@ -312,8 +312,8 @@ Clojure usa **polimorfismo** e **conversão de tipos** para fazer `first`, `rest
     :emergency (clojure.string/upper-case message)))
 
 (def warn (partial lousy-logger :warn))
-(warn \"Red light ahead\")
-; => \"red light ahead\"
+(warn "Red light ahead")
+; => "red light ahead"
 
 ;; Implementação de partial
 (defn my-partial [partialized-fn & args]
@@ -359,7 +359,7 @@ Carlisle Cullen,6
 ### Código Principal
 ```clojure
 (ns fwpd.core)
-(def filename \"suspects.csv\")
+(def filename "suspects.csv")
 
 ;; Configuração de conversões
 (def vamp-keys [:name :glitter-index])
@@ -369,8 +369,8 @@ Carlisle Cullen,6
 
 ;; Parser CSV
 (defn parse [string]
-  (map #(clojure.string/split % #\",\")
-       (clojure.string/split string #\"\\n\")))
+  (map #(clojure.string/split % #",")
+       (clojure.string/split string #"\\n")))
 
 ;; Converter para mapas
 (defn mapify [rows]
@@ -387,9 +387,9 @@ Carlisle Cullen,6
 
 ;; Usar tudo junto
 (glitter-filter 3 (mapify (parse (slurp filename))))
-; => ({:name \"Edward Cullen\", :glitter-index 10}
-      {:name \"Jacob Black\", :glitter-index 3}
-      {:name \"Carlisle Cullen\", :glitter-index 6})
+; => ({:name "Edward Cullen", :glitter-index 10}
+      {:name "Jacob Black", :glitter-index 3}
+      {:name "Carlisle Cullen", :glitter-index 6})
 ```
 
 ## 📚 Conceitos-Chave Resumidos

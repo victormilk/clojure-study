@@ -25,12 +25,12 @@ Clojure reconhece dois tipos de estruturas:
 ```clojure
 ;; Literais
 1
-\"uma string\"
-[\"um\" \"vetor\" \"de\" \"strings\"]
+"uma string"
+["um" "vetor" "de" "strings"]
 
 ;; Operações  
 (+ 1 2 3)        ; => 6
-(str \"Olá\" \" \" \"mundo\")  ; => \"Olá mundo\"
+(str "Olá" " " "mundo")  ; => "Olá mundo"
 ```
 
 ### Controle de Fluxo
@@ -43,48 +43,48 @@ Clojure reconhece dois tipos de estruturas:
 
 ;; Exemplos
 (if true
-  \"Verdadeiro!\"
-  \"Falso!\")
-; => \"Verdadeiro!\"
+  "Verdadeiro!"
+  "Falso!")
+; => "Verdadeiro!"
 
 (if false
-  \"Nunca executado\")
+  "Nunca executado")
 ; => nil
 ```
 
 #### do - Múltiplas Formas
 ```clojure
 (if true
-  (do (println \"Sucesso!\")
-      \"Resultado final\")
-  (do (println \"Falha!\")
-      \"Outro resultado\"))
+  (do (println "Sucesso!")
+      "Resultado final")
+  (do (println "Falha!")
+      "Outro resultado"))
 ; => Sucesso!
-; => \"Resultado final\"
+; => "Resultado final"
 ```
 
 #### when - If sem Else
 ```clojure
 (when true
-  (println \"Executando...\")
-  \"valor de retorno\")
+  (println "Executando...")
+  "valor de retorno")
 ; => Executando...
-; => \"valor de retorno\"
+; => "valor de retorno"
 ```
 
 ### Truthiness e Falsiness
 - **Falsy**: `nil` e `false`
-- **Truthy**: Todo o resto (incluindo 0, \"\", [])
+- **Truthy**: Todo o resto (incluindo 0, "", [])
 
 ```clojure
-(if \"qualquer string\"
-  \"strings são truthy\")
-; => \"strings são truthy\"
+(if "qualquer string"
+  "strings são truthy")
+; => "strings são truthy"
 
 (if nil
-  \"nunca executado\"
-  \"nil é falsy\")
-; => \"nil é falsy\"
+  "nunca executado"
+  "nil é falsy")
+; => "nil é falsy"
 ```
 
 ### Operadores Booleanos
@@ -107,10 +107,10 @@ Clojure reconhece dois tipos de estruturas:
 ### Naming com def
 ```clojure
 (def lista-herois
-  [\"Superman\" \"Batman\" \"Wonder Woman\"])
+  ["Superman" "Batman" "Wonder Woman"])
 
 lista-herois
-; => [\"Superman\" \"Batman\" \"Wonder Woman\"]
+; => ["Superman" "Batman" "Wonder Woman"]
 ```
 
 **⚠️ Importante**: Use `def` como constantes, não como variáveis mutáveis!
@@ -128,13 +128,13 @@ Todas as estruturas em Clojure são **imutáveis** - não podem ser modificadas 
 
 ### Strings
 ```clojure
-\"Uma string\"
-\"String com \\\"aspas\\\" escapadas\"
+"Uma string"
+"String com \\"aspas\\" escapadas"
 
 ;; Concatenação
-(def nome \"João\")
-(str \"Olá, \" nome \"!\")
-; => \"Olá, João!\"
+(def nome "João")
+(str "Olá, " nome "!")
+; => "Olá, João!"
 ```
 
 ### Maps (Mapas)
@@ -145,35 +145,35 @@ Associam chaves a valores (como dicionários/objetos):
 {}
 
 ;; Map com keywords
-{:nome \"Ana\"
+{:nome "Ana"
  :idade 25
- :cidade \"São Paulo\"}
+ :cidade "São Paulo"}
 
 ;; Map com strings
-{\"chave-string\" \"valor\"}
+{"chave-string" "valor"}
 
 ;; Maps aninhados
-{:pessoa {:nome \"Carlos\" :sobrenome \"Silva\"}}
+{:pessoa {:nome "Carlos" :sobrenome "Silva"}}
 ```
 
 **Acessando valores:**
 ```clojure
-(def pessoa {:nome \"Ana\" :idade 25})
+(def pessoa {:nome "Ana" :idade 25})
 
-(get pessoa :nome)           ; => \"Ana\"
-(get pessoa :altura \"N/A\")  ; => \"N/A\" (valor padrão)
+(get pessoa :nome)           ; => "Ana"
+(get pessoa :altura "N/A")  ; => "N/A" (valor padrão)
 
 ;; Map como função
-(pessoa :nome)               ; => \"Ana\"
+(pessoa :nome)               ; => "Ana"
 
 ;; Keyword como função  
-(:nome pessoa)               ; => \"Ana\"
+(:nome pessoa)               ; => "Ana"
 ```
 
 **Maps aninhados:**
 ```clojure
-(def dados {:pessoa {:nome \"João\" :idade 30}})
-(get-in dados [:pessoa :nome])  ; => \"João\"
+(def dados {:pessoa {:nome "João" :idade 30}})
+(get-in dados [:pessoa :nome])  ; => "João"
 ```
 
 ### Keywords
@@ -186,8 +186,8 @@ Identificadores especiais que começam com `:`:
 :_qualquer-coisa
 
 ;; Como função para lookup
-(:nome {:nome \"Ana\" :idade 25})  ; => \"Ana\"
-(:altura {:nome \"Ana\"} \"N/A\")    ; => \"N/A\"
+(:nome {:nome "Ana" :idade 25})  ; => "Ana"
+(:altura {:nome "Ana"} "N/A")    ; => "N/A"
 ```
 
 ### Vectors (Vetores)
@@ -195,14 +195,14 @@ Coleções ordenadas e indexadas (como arrays):
 
 ```clojure
 [1 2 3 4]
-[\"misturado\" 42 :keyword {:mapa \"valor\"}]
+["misturado" 42 :keyword {:mapa "valor"}]
 
 ;; Acessando por índice
-(get [\"a\" \"b\" \"c\"] 0)         ; => \"a\"
-(get [\"a\" \"b\" \"c\"] 1)         ; => \"b\"
+(get ["a" "b" "c"] 0)         ; => "a"
+(get ["a" "b" "c"] 1)         ; => "b"
 
 ;; Criando vetores
-(vector \"um\" \"dois\" \"três\")    ; => [\"um\" \"dois\" \"três\"]
+(vector "um" "dois" "três")    ; => ["um" "dois" "três"]
 
 ;; Adicionando elementos (ao final)
 (conj [1 2 3] 4)              ; => [1 2 3 4]
@@ -219,7 +219,7 @@ Coleções ordenadas otimizadas para acesso sequencial:
 (nth '(:a :b :c) 2)           ; => :c
 
 ;; Criando listas
-(list 1 \"dois\" {:tres 4})    ; => (1 \"dois\" {:tres 4})
+(list 1 "dois" {:tres 4})    ; => (1 "dois" {:tres 4})
 
 ;; Adicionando elementos (ao início)
 (conj '(1 2 3) 4)             ; => (4 1 2 3)
@@ -233,7 +233,7 @@ Coleções ordenadas otimizadas para acesso sequencial:
 Coleções de valores únicos:
 
 ```clojure
-#{\"valor1\" \"valor2\" :keyword}
+#{"valor1" "valor2" :keyword}
 
 ;; Criando sets
 (hash-set 1 1 2 2 3)          ; => #{1 2 3}
@@ -249,7 +249,7 @@ Coleções de valores únicos:
 ```
 
 ### Filosofia da Simplicidade
-> \"É melhor ter 100 funções operando em uma estrutura de dados do que 10 funções em 10 estruturas.\"
+> "É melhor ter 100 funções operando em uma estrutura de dados do que 10 funções em 10 estruturas."
 > — Alan Perlis
 
 ## 🔧 Funções
@@ -258,7 +258,7 @@ Coleções de valores únicos:
 ```clojure
 (+ 1 2 3)                     ; => 6
 (* 2 3 4)                     ; => 24
-(str \"a\" \"b\" \"c\")              ; => \"abc\"
+(str "a" "b" "c")              ; => "abc"
 ```
 
 **Expressões como operadores:**
@@ -275,17 +275,17 @@ Coleções de valores únicos:
 ### Definindo Funções
 ```clojure
 (defn nome-da-funcao
-  \"Docstring opcional\"
+  "Docstring opcional"
   [parametros]
   corpo-da-funcao)
 
 ;; Exemplo
 (defn saudacao
-  \"Cria uma saudação personalizada\"
+  "Cria uma saudação personalizada"
   [nome]
-  (str \"Olá, \" nome \"!\"))
+  (str "Olá, " nome "!"))
 
-(saudacao \"Maria\")            ; => \"Olá, Maria!\"
+(saudacao "Maria")            ; => "Olá, Maria!"
 ```
 
 #### Aridade Múltipla
@@ -302,11 +302,11 @@ Coleções de valores únicos:
 ```clojure
 (defn var-args
   [primeiro & resto]
-  (str \"Primeiro: \" primeiro 
-       \", Resto: \" resto))
+  (str "Primeiro: " primeiro 
+       ", Resto: " resto))
 
-(var-args \"a\" \"b\" \"c\" \"d\")
-; => \"Primeiro: a, Resto: (\\\"b\\\" \\\"c\\\" \\\"d\\\")\"
+(var-args "a" "b" "c" "d")
+; => "Primeiro: a, Resto: (\\"b\\" \\"c\\" \\"d\\")"
 ```
 
 #### Destructuring
@@ -316,29 +316,29 @@ Coleções de valores únicos:
   [[primeiro-item]]             ; Destructuring do primeiro elemento
   primeiro-item)
 
-(meu-primeiro [\"a\" \"b\" \"c\"])  ; => \"a\"
+(meu-primeiro ["a" "b" "c"])  ; => "a"
 
 ;; Com rest parameters
 (defn escolhedor  
   [[primeira segunda & outras]]
-  (println \"Primeira:\" primeira)
-  (println \"Segunda:\" segunda)
-  (println \"Outras:\" outras))
+  (println "Primeira:" primeira)
+  (println "Segunda:" segunda)
+  (println "Outras:" outras))
 ```
 
 **Maps:**
 ```clojure
 (defn localizar-tesouro
   [{:keys [lat lng]}]           ; Extrai :lat e :lng
-  (println \"Latitude:\" lat)
-  (println \"Longitude:\" lng))
+  (println "Latitude:" lat)
+  (println "Longitude:" lng))
 
 (localizar-tesouro {:lat 28.22 :lng 81.33})
 
 ;; Com :as para manter referência original
 (defn processar-coordenadas
   [{:keys [lat lng] :as coords}]
-  (println \"Processando:\" coords)
+  (println "Processando:" coords)
   (+ lat lng))
 ```
 
@@ -347,9 +347,9 @@ Coleções de valores únicos:
 ```clojure
 (fn [x] (* x 2))              ; Função anônima
 
-(map (fn [nome] (str \"Oi, \" nome))
-     [\"Ana\" \"João\"])
-; => (\"Oi, Ana\" \"Oi, João\")
+(map (fn [nome] (str "Oi, " nome))
+     ["Ana" "João"])
+; => ("Oi, Ana" "Oi, João")
 
 ;; Com nome local
 (def dobrar (fn [x] (* x 2)))
@@ -359,11 +359,11 @@ Coleções de valores únicos:
 ```clojure
 #(* % 2)                      ; Forma compacta
 
-(map #(str \"Oi, \" %) [\"Ana\" \"João\"])
-; => (\"Oi, Ana\" \"Oi, João\")
+(map #(str "Oi, " %) ["Ana" "João"])
+; => ("Oi, Ana" "Oi, João")
 
 ;; Múltiplos parâmetros
-#(str %1 \" e \" %2)           ; %1, %2, %3...
+#(str %1 " e " %2)           ; %1, %2, %3...
 
 ;; Rest parameters
 #(println %&)                 ; %& = rest args
@@ -389,29 +389,29 @@ Coleções de valores únicos:
 
 ;; Com destructuring
 (let [[primeiro & resto] [1 2 3 4]]
-  (str \"Primeiro: \" primeiro 
-       \", Resto: \" resto))
+  (str "Primeiro: " primeiro 
+       ", Resto: " resto))
 ```
 
 ### loop - Recursão
 ```clojure
 (loop [contador 0]
-  (println \"Contador:\" contador)
+  (println "Contador:" contador)
   (if (< contador 3)
     (recur (inc contador))    ; Chama loop novamente
-    \"Fim!\"))
+    "Fim!"))
 ```
 
 ### Expressões Regulares
 ```clojure
-#\"padrão\"                   ; Literal regex
+#"padrão"                   ; Literal regex
 
-(re-find #\"^left-\" \"left-eye\")   ; => \"left-\"
-(re-find #\"^left-\" \"right-eye\")  ; => nil
+(re-find #"^left-" "left-eye")   ; => "left-"
+(re-find #"^left-" "right-eye")  ; => nil
 
 ;; Substituição
-(clojure.string/replace \"left-hand\" #\"^left-\" \"right-\")
-; => \"right-hand\"
+(clojure.string/replace "left-hand" #"^left-" "right-")
+; => "right-hand"
 ```
 
 ### reduce - Padrão Fundamental
@@ -430,10 +430,10 @@ Coleções de valores únicos:
 ### Modelo do Hobbit
 ```clojure
 (def partes-corpo-assimetricas
-  [{:nome \"cabeça\" :tamanho 3}
-   {:nome \"olho-esquerdo\" :tamanho 1}
-   {:nome \"orelha-esquerda\" :tamanho 1}
-   {:nome \"ombro-esquerdo\" :tamanho 3}
+  [{:nome "cabeça" :tamanho 3}
+   {:nome "olho-esquerdo" :tamanho 1}
+   {:nome "orelha-esquerda" :tamanho 1}
+   {:nome "ombro-esquerdo" :tamanho 3}
    ;; ... mais partes esquerdas
    ])
 ```
@@ -442,7 +442,7 @@ Coleções de valores únicos:
 ```clojure
 (defn parte-correspondente
   [parte]
-  {:nome (clojure.string/replace (:nome parte) #\"^esquerdo-\" \"direito-\")
+  {:nome (clojure.string/replace (:nome parte) #"^esquerdo-" "direito-")
    :tamanho (:tamanho parte)})
 ```
 
@@ -473,7 +473,7 @@ Coleções de valores únicos:
 
 ;; Testando
 (atingir partes-corpo-assimetricas)
-; => {:nome \"ombro-direito\", :tamanho 3}
+; => {:nome "ombro-direito", :tamanho 3}
 ```
 
 ## 📚 Conceitos-Chave Resumidos
@@ -504,7 +504,7 @@ Coleções de valores únicos:
 - **let**: binding local de nomes
 - **loop/recur**: recursão otimizada  
 - **reduce**: padrão processo-e-acumule
-- **Regex**: `#\"padrão\"` matching
+- **Regex**: `#"padrão"` matching
 
 ### 🎨 Filosofia
 - **Simplicidade**: poucas estruturas, muitas funções

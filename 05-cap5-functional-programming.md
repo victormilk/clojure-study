@@ -20,41 +20,41 @@ Uma função é **pura** se atende dois critérios:
 ;; Funções puras (transparência referencial)
 (+ 1 2)                    ; => 3 (sempre)
 (defn wisdom [words]
-  (str words \", Daniel-san\"))
+  (str words ", Daniel-san"))
 
 ;; Funções não-puras (não são transparência referencial)
 (defn year-end-evaluation []
   (if (> (rand) 0.5)
-    \"You get a raise!\"
-    \"Better luck next year!\"))
+    "You get a raise!"
+    "Better luck next year!"))
 
 ;; analyze-file não é pura, mas analysis é
 (defn analyze-file [filename]
   (analysis (slurp filename)))
 
 (defn analysis [text]
-  (str \"Character count: \" (count text)))
+  (str "Character count: " (count text)))
 ```
 
 ### Sem Efeitos Colaterais
 **JavaScript com efeitos colaterais:**
 ```javascript
-var haplessObject = { emotion: \"Carefree!\" };
+var haplessObject = { emotion: "Carefree!" };
 
 var evilMutator = function(object){
-  object.emotion = \"So emo :'(\";  // EFEITO COLATERAL!
+  object.emotion = "So emo :'(";  // EFEITO COLATERAL!
 }
 
 evilMutator(haplessObject);
-haplessObject.emotion;  // => \"So emo :'(\"
+haplessObject.emotion;  // => "So emo :'("
 ```
 
 **Clojure sem efeitos colaterais:**
 ```clojure
 ;; Estruturas imutáveis - sem efeitos colaterais possíveis!
-(def my-data {:emotion \"Carefree!\"})
-(assoc my-data :emotion \"So emo :'(\")  ; => {:emotion \"So emo :'(\"}
-my-data                                  ; => {:emotion \"Carefree!\"} (inalterado!)
+(def my-data {:emotion "Carefree!"})
+(assoc my-data :emotion "So emo :'(")  ; => {:emotion "So emo :'("}
+my-data                                  ; => {:emotion "Carefree!"} (inalterado!)
 ```
 
 ### Vantagens das Funções Puras
@@ -112,7 +112,7 @@ for(var i=0; i < wrestlers.length; i++){
 class GlamourShotCaption
   def clean!
     text.trim!              # MUTAÇÃO!
-    text.gsub!(/lol/, \"LOL\") # MUTAÇÃO!
+    text.gsub!(/lol/, "LOL") # MUTAÇÃO!
   end
 end
 ```
@@ -122,15 +122,15 @@ end
 (require '[clojure.string :as s])
 
 (defn clean [text]
-  (s/replace (s/trim text) #\"lol\" \"LOL\"))
+  (s/replace (s/trim text) #"lol" "LOL"))
 
-(clean \"My boa constrictor is so sassy lol!  \")
-; => \"My boa constrictor is so sassy LOL!\"
+(clean "My boa constrictor is so sassy lol!  ")
+; => "My boa constrictor is so sassy LOL!"
 ```
 
 **Processo:**
-1. `text` → `s/trim` → `\"My boa constrictor is so sassy lol!\"`
-2. Resultado → `s/replace` → `\"My boa constrictor is so sassy LOL!\"`
+1. `text` → `s/trim` → `"My boa constrictor is so sassy lol!"`
+2. Resultado → `s/replace` → `"My boa constrictor is so sassy LOL!"`
 
 ## 😎 Coisas Legais com Funções Puras
 
@@ -142,7 +142,7 @@ end
 
 ;; Acessando atributos de personagem
 (def character
-  {:name \"Smooches McCutes\"
+  {:name "Smooches McCutes"
    :attributes {:intelligence 10
                 :strength 4
                 :dexterity 5}})
@@ -171,14 +171,14 @@ end
   (Thread/sleep 1000)
   x)
 
-(sleepy-identity \"Mr. Fantastico\")  ; => demora 1 segundo
-(sleepy-identity \"Mr. Fantastico\")  ; => demora 1 segundo (novamente)
+(sleepy-identity "Mr. Fantastico")  ; => demora 1 segundo
+(sleepy-identity "Mr. Fantastico")  ; => demora 1 segundo (novamente)
 
 ;; Versão memoizada
 (def memo-sleepy-identity (memoize sleepy-identity))
 
-(memo-sleepy-identity \"Mr. Fantastico\")  ; => demora 1 segundo
-(memo-sleepy-identity \"Mr. Fantastico\")  ; => instantâneo!
+(memo-sleepy-identity "Mr. Fantastico")  ; => demora 1 segundo
+(memo-sleepy-identity "Mr. Fantastico")  ; => instantâneo!
 ```
 
 ## 🎯 Projeto: Peg Thing
@@ -322,8 +322,8 @@ Quatro tarefas principais:
 (defn render-pos [board pos]
   (str (nth letters (dec pos))
        (if (get-in board [pos :pegged])
-         (colorize \"0\" :blue)
-         (colorize \"-\" :red))))
+         (colorize "0" :blue)
+         (colorize "-" :red))))
 
 (defn row-positions [row-num]
   (range (inc (or (row-tri (dec row-num)) 0))
@@ -331,11 +331,11 @@ Quatro tarefas principais:
 
 (defn row-padding [row-num rows]
   (let [pad-length (/ (* (- rows row-num) pos-chars) 2)]
-    (apply str (take pad-length (repeat \" \")))))
+    (apply str (take pad-length (repeat " ")))))
 
 (defn render-row [board row-num]
   (str (row-padding row-num (:rows board))
-       (clojure.string/join \" \" 
+       (clojure.string/join " " 
          (map (partial render-pos board)
               (row-positions row-num)))))
 
@@ -359,9 +359,9 @@ Quatro tarefas principais:
          (clojure.string/lower-case input)))))
 
 (defn prompt-move [board]
-  (println \"\\nHere's your board:\")
+  (println "\\nHere's your board:")
   (print-board board)
-  (println \"Move from where to where? Enter two letters:\")
+  (println "Move from where to where? Enter two letters:")
   (let [input (map letter->pos (characters-as-strings (get-input)))]
     (if-let [new-board (make-move board (first input) (second input))]
       (user-entered-valid-move new-board)
@@ -373,7 +373,7 @@ Quatro tarefas principais:
     (game-over board)))
 
 (defn user-entered-invalid-move [board]
-  (println \"\\n!!! That was an invalid move :(\\n\")
+  (println "\\n!!! That was an invalid move :(\\n")
   (prompt-move board))
 ```
 
@@ -382,24 +382,24 @@ Quatro tarefas principais:
 ```clojure
 (defn game-over [board]
   (let [remaining-pegs (count (filter :pegged (vals board)))]
-    (println \"Game over! You had\" remaining-pegs \"pegs left:\")
+    (println "Game over! You had" remaining-pegs "pegs left:")
     (print-board board)
-    (println \"Play again? y/n [y]\")
-    (let [input (get-input \"y\")]
-      (if (= \"y\" input)
+    (println "Play again? y/n [y]")
+    (let [input (get-input "y")]
+      (if (= "y" input)
         (prompt-rows)
         (do
-          (println \"Bye!\")
+          (println "Bye!")
           (System/exit 0))))))
 
 (defn prompt-empty-peg [board]
-  (println \"Here's your board:\")
+  (println "Here's your board:")
   (print-board board)
-  (println \"Remove which peg? [e]\")
-  (prompt-move (remove-peg board (letter->pos (get-input \"e\")))))
+  (println "Remove which peg? [e]")
+  (prompt-move (remove-peg board (letter->pos (get-input "e")))))
 
 (defn prompt-rows []
-  (println \"How many rows? [5]\")
+  (println "How many rows? [5]")
   (let [rows (Integer. (get-input 5))
         board (new-board rows)]
     (prompt-empty-peg board)))
